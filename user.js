@@ -97,14 +97,23 @@ user_pref("network.dns.disablePrefetchFromHTTPS", true);
 // --- Privacy-preserving Ad Measurement ---
 user_pref("dom.private-attribution.submission.enabled", false);
 
-// -------------------------------------
 // 3. FINGERPRINTING RESISTANCE
-// -------------------------------------
-
 user_pref("privacy.fingerprintingProtection", true);
-user_pref("privacy.fingerprintingProtection.pbmode", true);     // Apply protection in private browsing mode
+user_pref("privacy.fingerprintingProtection.pbmode", true); // Apply protection in private browsing mode
 user_pref("privacy.resistFingerprinting.randomDataOnCanvasExtract", true); // Randomize Canvas output
-user_pref("privacy.resistFingerprinting.letterboxing", true);   // Adds padding to standardize window sizes
+
+// Fingerprinting resistance - optimized letterboxing for multiple monitors
+user_pref("privacy.resistFingerprinting.letterboxing", true);
+
+// Optional: keep standard letterboxing behavior but avoid extreme bars
+user_pref("privacy.resistFingerprinting.letterboxing.force", true);
+
+// Logical screen sizes for both Laptop Screens and 4K Monitors
+user_pref("privacy.resistFingerprinting.letterboxing.dimensions",
+  "1280x832,1280x800,1440x900,1512x982,1600x1000,1680x1050,1920x1080,2560x1440,3200x1800,3840x2160");
+
+// Optional: keep standard letterboxing behavior but avoid extreme bars
+user_pref("privacy.resistFingerprinting.letterboxing.force", false);
 
 // --- WebGL & Web Audio Hardening ---
 user_pref("webgl.disabled", false);                             // Allow WebGL, rely on RFP protections

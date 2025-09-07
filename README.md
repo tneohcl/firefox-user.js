@@ -85,3 +85,11 @@ If you encounter an issue with a website, the first step is to switch to the **M
 * Advanced users can also manage multiple Firefox profiles—one hardened, one minimal—for quick switching without renaming files.  
 
 ---
+
+## Acknowledgments
+
+This configuration is inspired by a wide range of privacy-focused Firefox tweaks, community discussions, and experimental setups collected over time.  
+Rather than quoting a single project, it represents a distilled approach — combining proven practices with practical adjustments — to create a balanced, usable, and effective privacy configuration.
+
+---
+

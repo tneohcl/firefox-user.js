@@ -66,7 +66,3 @@ To apply a different configuration:
 **Tip for Advanced Users:** You can manage multiple Firefox profiles, each with its own `user.js` file, to separate browsing activities and configurations.
 
 ---
-
-### Acknowledgments
-
-This configuration is based on the work of the [ghacks-user.js](https://github.com/ghacksuserjs/ghacks-user.js) project and was refined through collaborative feedback to create a modern, balanced, and highly effective privacy solution for Firefox.

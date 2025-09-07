@@ -2,15 +2,26 @@
 // Terence's Minimal Backup user.js
 // Privacy & security essentials only — designed to avoid breakage
 // ============================================================================
+//
+// TECHNICAL NOTE:
+// The tracking protection flags below (privacy.trackingprotection.*) are
+// technically redundant because `browser.contentblocking.category = "strict"`
+// already enforces them. However, they are kept here explicitly for:
+//
+//   1. Documentation clarity (shows exactly what’s enabled)
+//   2. Debugging transparency (no guesswork during testing)
+//   3. Future-proofing (in case Mozilla changes "Strict" defaults)
+//
+// ============================================================================
 
 // -------------------------------------
 // 1. PRIVACY & TRACKING PROTECTION
 // -------------------------------------
 user_pref("browser.contentblocking.category", "strict"); // Strict ETP (covers tracking, crypto, fingerprinting)
 user_pref("privacy.trackingprotection.enabled", true);
-user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
-user_pref("privacy.trackingprotection.cryptomining.enabled", true);
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("privacy.trackingprotection.cryptomining.enabled", true);
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
 
 // -------------------------------------
 // 2. FINGERPRINTING RESISTANCE

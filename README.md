@@ -61,9 +61,19 @@ Follow these steps carefully to apply a configuration to your Firefox profile.
 
 ## Important Notes
 
-* **`user.js` Overrides Manual Tweaks:** Any changes you make directly in `about:config` will be reset the next time Firefox starts if they conflict with a preference defined in your `user.js` file.  
-* **Verification:** You can confirm the settings are working by going to `about:config` and searching for a preference from the file (e.g., `browser.uidensity`). If the preference name is **bold** and the status is **"user set"**, the file has loaded correctly.  
-* **Advanced Check:** To see enforced enterprise policies (if any), visit `about:policies#active`.  
+* **Firefox Version Compatibility:**  
+  These configurations are written and tested against **Firefox version 142.0 and newer**.  
+  While most settings will apply cleanly to earlier versions, some preferences (such as `privacy.fingerprintingProtection`) only exist in recent Firefox releases. For best results, always use the latest stable version of Firefox when applying these `user.js` files.
+
+* **`user.js` Overrides Manual Tweaks:**  
+  Any changes you make directly in `about:config` will be reset the next time Firefox starts if they conflict with a preference defined in your `user.js` file.
+
+* **Verification:**  
+  You can confirm the settings are working by going to `about:config` and searching for a preference from the file (e.g., `browser.uidensity`).  
+  If the preference name is **bold** and the status is **"user set"**, the file has loaded correctly.
+
+* **Advanced Check:**  
+  To see enforced enterprise policies (if any), visit `about:policies#active`.
 
 ---
 

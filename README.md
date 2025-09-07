@@ -75,7 +75,3 @@ If you encounter an issue with a website, the first step is to switch to the **M
 * Advanced users can also manage multiple Firefox profiles—one hardened, one minimal—for quick switching without renaming files.  
 
 ---
-
-## Acknowledgments
-
-This configuration is based on the work of the [ghacks-user.js](https://github.com/ghacksuserjs/ghacks-user.js) project and was refined through collaborative feedback to create a modern, balanced, and highly effective privacy solution for Firefox.  

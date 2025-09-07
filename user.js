@@ -1,203 +1,246 @@
 // ============================================================================
-// Terence's Hardened user.js (finalized)
+// Terence's Hardened user.js (Final - Reorganized)
 // Privacy-first but keeps major sites functional (YouTube autoplay, Meet, etc.)
 // ============================================================================
 
 // -------------------------------------
-// 1. GENERAL BROWSER BEHAVIOR & UI
+// 1. STARTUP & UI BEHAVIOR
 // -------------------------------------
 
-// --- Startup & New Tabs ---
-user_pref("browser.startup.page", 0);                   // 0=blank, 1=home, 2=last visited, 3=resume previous session
+// --- Startup Configuration ---
+user_pref("browser.startup.page", 0);                          // 0=blank page on startup
 user_pref("browser.startup.homepage", "about:blank");
-user_pref("browser.newtabpage.enabled", false);         // Disable Firefox's built-in new tab page
-user_pref("browser.newtab.url", "about:blank");
+user_pref("browser.newtabpage.enabled", false);                // Disable Firefox's new tab page
 
-// --- Firefox Home & Activity Stream ---
-user_pref("browser.newtabpage.activity-stream.supported", false); // Hard kill for the entire activity stream
+// --- Compact Mode UI ---
+user_pref("browser.compactmode.show", true);                   // Show Compact option in Density menu
+user_pref("browser.uidensity", 1);                             // 0=normal, 1=compact, 2=touch
+
+// --- Activity Stream & Home Page Removal ---
+user_pref("browser.newtabpage.activity-stream.supported", false);
 user_pref("browser.newtabpage.activity-stream.showSearch", false);
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
-user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
-user_pref("browser.newtabpage.activity-stream.showSponsored", false);
-user_pref("browser.newtabpage.activity-stream.showSponsoredLinks", false);
 user_pref("browser.newtabpage.activity-stream.feeds.snippets", false);
-user_pref("browser.newtabpage.activity-stream.showRecentSaves", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
-user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
-user_pref("browser.newtabpage.activity-stream.newtabWallpapers.enabled", false); // Disable new tab wallpapers
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false); // Disable addon recommendations
-user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false); // Disable feature recommendations
+user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
+user_pref("browser.newtabpage.activity-stream.showSponsored", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredLinks", false);
+user_pref("browser.newtabpage.activity-stream.showRecentSaves", false);
+user_pref("browser.newtabpage.activity-stream.newtabWallpapers.enabled", false);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
+user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.telemetry", false);
 
 // --- Search & URL Bar ---
-user_pref("browser.search.suggest.enabled", false);     // Disable search suggestions in the search bar
-user_pref("browser.search.suggest.prompted", true);
-user_pref("browser.urlbar.suggest.searches", false);    // Disable search suggestions in the URL bar
-user_pref("browser.urlbar.showSearchSuggestionsFirst", false);
-user_pref("browser.urlbar.recentsearches.enabled", false);
-user_pref("browser.urlbar.suggest.history", true);      // Keep history suggestions for usability
-
-// --- Forms & Passwords ---
-user_pref("signon.rememberSignons", false);             // Disable password manager
-user_pref("signon.autofillForms", false);               // Disable autofill for forms
-user_pref("signon.formlessCapture.enabled", false);
-user_pref("extensions.formautofill.addresses.enabled", false);
-user_pref("extensions.formautofill.creditCards.enabled", false);
-user_pref("extensions.formautofill.payments.enabled", false);
-user_pref("dom.forms.autocomplete.formautofill", false);
-
-// --- File Handling ---
-user_pref("pdfjs.disabled", true);                      // Disable built-in PDF viewer for security
-
-// --- Media Autoplay ---
-user_pref("media.autoplay.default", 0);                 // 0=allow autoplay, 1=block autoplay
-
-// --- UI Density ---
-user_pref("browser.uidensity", 1);                      // 0=Normal, 1=Compact, 2=Touch
-user_pref("browser.compactmode.show", true);            // Show Compact mode option in Customize menu
+user_pref("browser.search.suggest.enabled", false);            // No search suggestions
+user_pref("browser.urlbar.suggest.searches", false);           // No URL bar search suggestions
+user_pref("browser.urlbar.showSearchSuggestionsFirst", true);
+user_pref("browser.urlbar.suggest.history", true);             // Keep history suggestions
+user_pref("browser.urlbar.recentsearches.enabled", true);      // Show recent searches
 
 // -------------------------------------
 // 2. PRIVACY & TRACKING PROTECTION
 // -------------------------------------
 
-// --- Enhanced Tracking Protection (ETP) ---
-user_pref("browser.contentblocking.category", "strict");     // Enable strict content blocking
+// --- Enhanced Tracking Protection ---
+user_pref("browser.contentblocking.category", "strict");
 user_pref("privacy.trackingprotection.enabled", true);
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
 user_pref("privacy.trackingprotection.cryptomining.enabled", true);
 user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
 
-// --- Referrer Policy ---
-user_pref("network.http.referer.XOriginPolicy", 2);          // Only send referer for same-origin requests
-user_pref("network.http.referer.XOriginTrimmingPolicy", 2);  // Trim referer to origin for cross-origin
+// --- Site Isolation & Containers ---
+user_pref("privacy.firstparty.isolate", true);                 // Isolate site data per domain
+user_pref("privacy.userContext.enabled", true);                // Enable container tabs
+user_pref("privacy.userContext.ui.enabled", true);
 
-// --- Do Not Track & GPC ---
-user_pref("privacy.donottrackheader.enabled", true);
-user_pref("privacy.globalprivacycontrol.enabled", true);
-user_pref("privacy.globalprivacycontrol.functionality.enabled", true);
+// --- Cookie Management ---
+user_pref("network.cookie.cookieBehavior", 1);                 // Block 3rd-party cookies
+user_pref("network.cookie.lifetimePolicy", 0);                 // Keep cookies normally
+user_pref("network.cookie.sameSite.noneRequiresSecure", true);
+user_pref("network.cookie.sameSite.schemeful", true);
 
-// --- Cookie & Site Data Management ---
-user_pref("network.cookie.cookieBehavior", 1);       // 1=block 3rd-party, 2=block all
-user_pref("network.cookie.lifetimePolicy", 2);       // Clear cookies at shutdown
+// --- Data Clearing at Shutdown ---
 user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 user_pref("privacy.clearOnShutdown.cookies", true);
 user_pref("privacy.clearOnShutdown.cache", true);
 user_pref("privacy.clearOnShutdown.offlineApps", true);
-user_pref("privacy.clearOnShutdown.sessions", false);
+user_pref("privacy.clearOnShutdown.sessions", true);
+user_pref("privacy.clearOnShutdown.formdata", true);
+user_pref("privacy.clearOnShutdown.downloads", false);         // Keep download history
+user_pref("privacy.clearOnShutdown.history", false);           // Keep browsing history
+user_pref("privacy.clearOnShutdown.siteSettings", false);      // Keep site permissions
 
-// --- Network & Connectivity ---
-user_pref("network.predictor.enabled", false);          // Disable network predictor (prefetching)
-user_pref("network.dns.disablePrefetch", true);
-user_pref("network.prefetch-next", false);
-user_pref("captivedetect.canonicalURL", "");            // Disable captive portal detection
-user_pref("network.captive-portal-service.enabled", false);
-user_pref("network.http.speculative-parallel-limit", 0);
-user_pref("network.dns.disablePrefetchFromHTTPS", true);
+// --- Privacy Headers & Signals ---
+user_pref("privacy.donottrackheader.enabled", true);
+user_pref("privacy.globalprivacycontrol.enabled", true);
+user_pref("privacy.globalprivacycontrol.functionality.enabled", true);
+
+// --- Query Parameter Stripping ---
+user_pref("privacy.query_stripping.enabled", true);
+user_pref("privacy.query_stripping.enabled.pbmode", true);
+
+// --- Referrer Policy ---
+user_pref("network.http.referer.XOriginPolicy", 2);            // Same-origin only
+user_pref("network.http.referer.XOriginTrimmingPolicy", 2);    // Trim to origin
+user_pref("network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation", true);
 
 // --- Privacy-preserving Ad Measurement ---
 user_pref("dom.private-attribution.submission.enabled", false);
 
+// -------------------------------------
 // 3. FINGERPRINTING RESISTANCE
+// -------------------------------------
+
+// --- Core Fingerprinting Protection ---
+// 'privacy.fingerprintingProtection' is a modern, breakage-aware anti-fingerprinting
+// measure that is enabled by default with ETP "Strict" and is the recommended setting
+// for a balance of privacy and functionality.
 user_pref("privacy.fingerprintingProtection", true);
-user_pref("privacy.fingerprintingProtection.pbmode", true); // Apply protection in private browsing mode
-user_pref("privacy.resistFingerprinting.randomDataOnCanvasExtract", true); // Randomize Canvas output
+user_pref("privacy.fingerprintingProtection.pbmode", true);
 
-// Fingerprinting resistance - optimized letterboxing for multiple monitors
-user_pref("privacy.resistFingerprinting.letterboxing", true);
+// --- API Hardening ---
+user_pref("device.sensors.enabled", false);   // Disable motion/orientation sensors
+user_pref("dom.gamepad.enabled", false);      // Disable Gamepad API
+user_pref("dom.battery.enabled", false);      // Disable Battery API
+user_pref("dom.maxHardwareConcurrency", 4);   // Reduce reported CPU threads
+user_pref("media.navigator.enabled", false); // Disable MediaDevices enumeration
 
-// Logical screen sizes for both Laptop Screens and 4K Monitors
-user_pref("privacy.resistFingerprinting.letterboxing.dimensions",
-  "1280x832,1280x800,1440x900,1512x982,1600x1000,1680x1050,1920x1080,2560x1440,3200x1800,3840x2160");
-
-// Optional: keep standard letterboxing behavior but avoid extreme bars
-user_pref("privacy.resistFingerprinting.letterboxing.force", false);
-
-// --- WebGL & Web Audio Hardening ---
-user_pref("webgl.disabled", false);                             // Allow WebGL, rely on RFP protections
+// --- WebGL Hardening ---
+user_pref("webgl.disabled", false);                            // Allow WebGL for functionality
 user_pref("webgl.enable-webgl2", true);
-user_pref("webgl.min_capability_mode", true);
-user_pref("webgl.disable-extensions", true);
-user_pref("dom.webaudio.enabled", false);                       // Disable Web Audio API (prevents audio fingerprinting)
+user_pref("webgl.disable-extensions", true);                   // Block fingerprinting extensions
+user_pref("webgl.disable-fail-if-major-performance-caveat", false); // Set to false for safety
+
+// --- Web Audio Hardening ---
+user_pref("dom.webaudio.enabled", true);                       // Enable for functionality
+user_pref("media.webaudio.max_sources", 8);                    // Limit for anti-fingerprinting
+
+// -------------------------------------
+// 4. NETWORK & CONNECTIVITY
+// -------------------------------------
+
+// --- DNS over HTTPS ---
+user_pref("network.trr.mode", 2);                              // Enable DoH with fallback
+user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
+user_pref("network.trr.bootstrapAddress", "9.9.9.9");
+
+// --- Disable Prefetching & Prediction ---
+user_pref("network.predictor.enabled", false);
+user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
+user_pref("network.prefetch-next", false);
+user_pref("network.http.speculative-parallel-limit", 0);
 
 // --- WebRTC Hardening ---
-user_pref("media.peerconnection.enabled", true);  // (needed for Meet)
-user_pref("media.peerconnection.ice.default_address_only", true); // WebRTC IP leak prevention
+user_pref("media.peerconnection.enabled", true);               // Keep for Meet/Discord
+user_pref("media.peerconnection.ice.default_address_only", true);
 user_pref("media.peerconnection.ice.no_host", true);
-user_pref("media.peerconnection.ice.proxy_only", true); // ensures only proxy addresses go out
+user_pref("media.peerconnection.ice.proxy_only", true);
 
 // -------------------------------------
-// 4. TELEMETRY & DATA COLLECTION
+// 5. SECURITY HARDENING
 // -------------------------------------
 
-// --- General Telemetry & Health Reports ---
+// --- HTTPS-Only Mode ---
+user_pref("dom.security.https_only_mode", true);
+user_pref("dom.security.https_only_mode_pbm", true);
+
+// --- Mixed Content Protection ---
+user_pref("security.mixed_content.block_active_content", true);
+user_pref("security.mixed_content.block_display_content", true);
+user_pref("security.mixed_content.block_object_subrequest", true);
+user_pref("security.mixed_content.upgrade_display_content", true);
+
+// --- TLS Security ---
+user_pref("security.tls.insecure_fallback_hosts", "");
+user_pref("security.tls.hello_downgrade_check", true);
+
+// -------------------------------------
+// 6. MEDIA & CONTENT HANDLING
+// -------------------------------------
+
+// --- PDF Handling ---
+user_pref("pdfjs.disabled", false);                            // Keep PDF.js for convenience
+user_pref("pdfjs.enableScripting", false);                     // Disable PDF JavaScript
+
+// --- Media Autoplay ---
+user_pref("media.autoplay.default", 0);                        // Allow autoplay for usability
+
+// --- Permissions ---
+user_pref("geo.enabled", false);                               // Disable geolocation
+user_pref("permissions.default.geo", 2);                       // Block geo requests
+user_pref("permissions.default.camera", 0);                    // Ask for camera
+user_pref("permissions.default.microphone", 0);                // Ask for microphone
+
+// -------------------------------------
+// 7. FORMS & AUTOFILL
+// -------------------------------------
+
+// --- Password Management ---
+user_pref("signon.rememberSignons", false);                    // Use external password manager
+user_pref("signon.autofillForms", false);
+user_pref("signon.formlessCapture.enabled", false);
+
+// --- Form Autofill ---
+user_pref("extensions.formautofill.addresses.enabled", true);   // Addresses only (less sensitive)
+user_pref("extensions.formautofill.creditCards.enabled", false);
+user_pref("extensions.formautofill.payments.enabled", false);
+user_pref("dom.forms.autocomplete.formautofill", false);
+
+// -------------------------------------
+// 8. TELEMETRY & DATA COLLECTION
+// -------------------------------------
+
+// --- Master Telemetry Controls ---
+// Note: These are the primary switches that control most telemetry
+user_pref("datareporting.policy.dataSubmissionEnabled", false); // Master switch
+user_pref("toolkit.telemetry.unified", false);                  // Master telemetry switch
+
+// --- Additional Telemetry Shutdown (Comprehensive Coverage) ---
+// The following provide extra assurance and handle edge cases
 user_pref("datareporting.healthreport.uploadEnabled", false);
-user_pref("datareporting.policy.dataSubmissionEnabled", false);
 user_pref("datareporting.usage.uploadEnabled", false);
-user_pref("toolkit.telemetry.unified", false);
 user_pref("toolkit.telemetry.enabled", false);
 user_pref("toolkit.telemetry.server", "data:,");
 user_pref("toolkit.telemetry.archive.enabled", false);
-user_pref("toolkit.coverage.opt-out", true);
-user_pref("toolkit.coverage.endpoint.base", "");
 
-// --- Pings & Studies ---
+// --- Specific Telemetry Pings ---
 user_pref("toolkit.telemetry.newProfilePing.enabled", false);
 user_pref("toolkit.telemetry.updatePing.enabled", false);
 user_pref("toolkit.telemetry.bhrPing.enabled", false);
 user_pref("toolkit.telemetry.firstShutdownPing.enabled", false);
 user_pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 user_pref("toolkit.telemetry.reportingpolicy.firstRun", false);
-user_pref("browser.ping-centre.telemetry", false);
+
+// --- Coverage & Experiments ---
+user_pref("toolkit.coverage.opt-out", true);
+user_pref("toolkit.coverage.endpoint.base", "");
 user_pref("app.shield.optoutstudies.enabled", false);
 user_pref("app.normandy.enabled", false);
 user_pref("app.normandy.api_url", "");
 user_pref("messaging-system.rsexperimentloader.enabled", false);
 user_pref("nimbus.debug", false);
 
-// --- Targeted Telemetry ---
-user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
-user_pref("browser.newtabpage.activity-stream.telemetry", false);
+// --- UI Telemetry ---
+user_pref("browser.ping-centre.telemetry", false);
 user_pref("browser.contextual-services.contextId", "");
 user_pref("security.app_menu.recordEventTelemetry", false);
 user_pref("security.certerrors.recordEventTelemetry", false);
 user_pref("security.identitypopup.recordEventTelemetry", false);
-user_pref("browser.discovery.enabled", false);
 
 // --- Crash Reports ---
 user_pref("browser.crashReports.enabled", false);
-user_pref("breakpad.reportURL", "");
 user_pref("browser.crashReports.unsubmittedCheck.enabled", false);
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit2", false);
+user_pref("breakpad.reportURL", "");
 
 // -------------------------------------
-// 5. SECURITY
+// 9. MOZILLA SERVICES & FEATURES
 // -------------------------------------
-
-// --- HTTPS-Only Mode ---
-user_pref("dom.security.https_only_mode", true);
-user_pref("dom.security.https_only_mode_pbm", true);
-user_pref("dom.security.https_only_mode_ever_enabled", true);
-
-// --- Mixed Content ---
-user_pref("security.mixed_content.block_active_content", true);
-user_pref("security.mixed_content.block_display_content", true);
-user_pref("security.tls.insecure_fallback_hosts", "");
-
-// --- DNS over HTTPS (DoH) ---
-user_pref("network.trr.mode", 2);                               // 2=Enable DoH, 3=enable DoH with TRR
-user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
-user_pref("network.trr.bootstrapAddress", "9.9.9.9");
-
-
-// -------------------------------------
-// 6. MISCELLANEOUS
-// -------------------------------------
-
-// --- Permissions ---
-user_pref("geo.enabled", false);
-user_pref("permissions.default.geo", 2);
-user_pref("permissions.default.camera", 0);
-user_pref("permissions.default.microphone", 0);
 
 // --- Firefox Accounts & Sync ---
 user_pref("identity.fxaccounts.enabled", false);
@@ -208,15 +251,27 @@ user_pref("services.sync.engine.passwords", false);
 user_pref("services.sync.engine.prefs", false);
 user_pref("services.sync.engine.tabs", false);
 
-// --- Other UI & Feature Flags ---
+// --- Extension & Add-on Management ---
 user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.getAddons.cache.enabled", false);
+
+// --- Mozilla Features ---
 user_pref("extensions.pocket.enabled", false);
 user_pref("extensions.pocket.site", "");
 user_pref("browser.ml.chat.enabled", false);
 user_pref("browser.ml.chat.provider", "");
 user_pref("browser.vpn_promo.enabled", false);
+user_pref("browser.discovery.enabled", false);
 
-// --- DEPRECATED FLAGS (kept for reference) ---
-// user_pref("privacy.trackingprotection.pbmode.enabled", true); // Its function is now handled by other flags.
-// user_pref("media.autoplay.blocking_policy", 0); // This flag is no longer used.
+// -------------------------------------
+// NOTES & DEPRECATED FLAGS
+// -------------------------------------
+
+// The following flags are no longer relevant in modern Firefox versions:
+// user_pref("browser.newtab.url", "about:blank"); // Deprecated - handled by newtabpage.enabled
+// user_pref("security.mixed_content.send_hsts_priming", true); // No longer effective (removed in FF91)
+// user_pref("browser.search.suggest.prompted", true); // First-run only flag
+// user_pref("privacy.trackingprotection.pbmode.enabled", true); // Now handled by other ETP flags
+// user_pref("media.autoplay.blocking_policy", 0); // No longer used in modern Firefox
+// user_pref("privacy.resistFingerprinting.randomDataOnCanvasExtract", false); // Legacy RFP pref, not needed with fingerprintingProtection
+// user_pref("privacy.resistFingerprinting.letterboxing", false); // Legacy RFP pref, not needed with fingerprintingProtection
